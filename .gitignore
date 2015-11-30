@@ -1,2 +1,4 @@
 # lien vers la SDL qui est différent entre nous
 jni/SDL
+# local.prpoerties où il y a le chemin du sdk android
+local.properties
