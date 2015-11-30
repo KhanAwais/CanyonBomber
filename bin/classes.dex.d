@@ -1,0 +1,23 @@
+/Users/awais/Documents/ESGI/NDK/workspace/SDLActivity/bin/classes.dex : \
+/Users/awais/Documents/ESGI/NDK/workspace/SDLActivity/bin/classes/org/libsdl/app/BuildConfig.class \
+/Users/awais/Documents/ESGI/NDK/workspace/SDLActivity/bin/classes/org/libsdl/app/DummyEdit.class \
+/Users/awais/Documents/ESGI/NDK/workspace/SDLActivity/bin/classes/org/libsdl/app/R$attr.class \
+/Users/awais/Documents/ESGI/NDK/workspace/SDLActivity/bin/classes/org/libsdl/app/R$drawable.class \
+/Users/awais/Documents/ESGI/NDK/workspace/SDLActivity/bin/classes/org/libsdl/app/R$layout.class \
+/Users/awais/Documents/ESGI/NDK/workspace/SDLActivity/bin/classes/org/libsdl/app/R$raw.class \
+/Users/awais/Documents/ESGI/NDK/workspace/SDLActivity/bin/classes/org/libsdl/app/R$string.class \
+/Users/awais/Documents/ESGI/NDK/workspace/SDLActivity/bin/classes/org/libsdl/app/R.class \
+/Users/awais/Documents/ESGI/NDK/workspace/SDLActivity/bin/classes/org/libsdl/app/SDLActivity$1.class \
+/Users/awais/Documents/ESGI/NDK/workspace/SDLActivity/bin/classes/org/libsdl/app/SDLActivity$SDLCommandHandler.class \
+/Users/awais/Documents/ESGI/NDK/workspace/SDLActivity/bin/classes/org/libsdl/app/SDLActivity$ShowTextInputTask.class \
+/Users/awais/Documents/ESGI/NDK/workspace/SDLActivity/bin/classes/org/libsdl/app/SDLActivity.class \
+/Users/awais/Documents/ESGI/NDK/workspace/SDLActivity/bin/classes/org/libsdl/app/SDLGenericMotionListener_API12.class \
+/Users/awais/Documents/ESGI/NDK/workspace/SDLActivity/bin/classes/org/libsdl/app/SDLInputConnection.class \
+/Users/awais/Documents/ESGI/NDK/workspace/SDLActivity/bin/classes/org/libsdl/app/SDLJoystickHandler.class \
+/Users/awais/Documents/ESGI/NDK/workspace/SDLActivity/bin/classes/org/libsdl/app/SDLJoystickHandler_API12$RangeComparator.class \
+/Users/awais/Documents/ESGI/NDK/workspace/SDLActivity/bin/classes/org/libsdl/app/SDLJoystickHandler_API12$SDLJoystick.class \
+/Users/awais/Documents/ESGI/NDK/workspace/SDLActivity/bin/classes/org/libsdl/app/SDLJoystickHandler_API12.class \
+/Users/awais/Documents/ESGI/NDK/workspace/SDLActivity/bin/classes/org/libsdl/app/SDLMain.class \
+/Users/awais/Documents/ESGI/NDK/workspace/SDLActivity/bin/classes/org/libsdl/app/SDLSurface$1.class \
+/Users/awais/Documents/ESGI/NDK/workspace/SDLActivity/bin/classes/org/libsdl/app/SDLSurface.class \
+/Users/awais/Documents/ESGI/NDK/workspace/SDLActivity/bin/dexedLibs/annotations-281fa2f43ff2af14c749450e9ae37710.jar \
