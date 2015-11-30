@@ -10,6 +10,8 @@
 #define ImageRenderer_hpp
 
 #include "SDL.h"
+#include <string>
+#include <map>
 
 using namespace std;
 
@@ -21,6 +23,15 @@ typedef struct Sprite
 } Sprite;
 
 class ImageRenderer {
+private:
+    /**
+     * variables de classe
+     */
+    static map<string, Sprite> sprites_charges;
+    /**
+     * méthodes de classe
+     */
+    static Sprite LoadSprite(const char* file);
 public:
     /**
      * variables de classe
@@ -30,8 +41,7 @@ public:
     /**
      * méthodes de classe
      */
-    static Sprite LoadSprite(const char* file);
-    static void draw(const Sprite sprite, int x, int y, int w, int h);
+    static void draw(string fileSprite, int x, int y, int w, int h);
     static void initialiseWindowAndRenderer(SDL_Window* w, SDL_Renderer* r);
 };
 

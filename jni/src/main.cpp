@@ -17,14 +17,13 @@ int main(int argc, char *argv[])
     if(SDL_CreateWindowAndRenderer(0, 0, 0, &window, &renderer) < 0)
         exit(2);
     
+    int w, h;
+    SDL_GetWindowSize(window, &w, &h);
+
     ImageRenderer::initialiseWindowAndRenderer(window, renderer);
     
     
     string file = "background2.bmp";
-    
-    Sprite sprite = ImageRenderer::LoadSprite(file.c_str());
-    if(sprite.texture == NULL)
-        exit(2);
     
     /* Main render loop */
     Uint8 done = 0;
@@ -45,7 +44,7 @@ int main(int argc, char *argv[])
         SDL_SetRenderDrawColor(renderer, 0xA0, 0xA0, 0xA0, 0xFF);
         SDL_RenderClear(renderer);
         
-        ImageRenderer::draw(sprite, 0, 0, 200, 200);//background
+        ImageRenderer::draw(file, 0, 0, w, h);//background
         
         /* Update the screen! */
         SDL_RenderPresent(renderer);
