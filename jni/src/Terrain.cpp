@@ -10,11 +10,14 @@
 #include "Application.hpp"
 #include <stdlib.h> // pour la fonction rand()
 #include <iostream>
+#include <algorithm> // Pour std::sort
+#include "ImageRenderer.hpp"
+#include <android/log.h> // Pour le log en natif vers logcat
 
 using namespace std;
 
-const int Terrain::nb_blocs_abscisses = 30;
-const int Terrain::nb_blocs_ordonnees = 14;
+const int Terrain::nb_blocs_abscisses = 12;
+const int Terrain::nb_blocs_ordonnees = 16;
 
 // Ces deux valeurs seront mises à jour lorsqu'un Terrain sera instancié
 int Terrain::hauteur_min_vaisseau = 0;
@@ -128,15 +131,7 @@ void Terrain::jouer(){
         
         int bloc_x = xPixelsToXBloc(_vaisseau->bombe->getPosX());
         int bloc_y = yPixelsToYBloc(_vaisseau->bombe->getPosY());
-if(bloc_x >= Terrain::nb_blocs_abscisses || bloc_y >= Terrain::nb_blocs_ordonnees){
-    std::cout << "Il y a une erreur quelque part :" << std::endl;
-    std::cout << "bombe->pos_x=" << _vaisseau->bombe->getPosX()
-        << " bombe->pos_y=" << _vaisseau->bombe->getPosY()
-        << " bloc_x=" << bloc_x << " bloc_y=" << bloc_y << std::endl;
-    afficher();
-}
         if (bloc_x > 0 && bloc_y > 0 && blocs[bloc_x][bloc_y] > 0) {
-std::cout << "explosion de blocs[" << bloc_x << "," << bloc_y << "]" << std::endl;
             _vaisseau->gagner(blocs[bloc_x][bloc_y]);
             blocs[bloc_x][bloc_y] = -4;
             _vaisseau->bombe->explose();
@@ -188,13 +183,13 @@ void Terrain::gerer_explosions(){
     
     // On trie par ordre croissant ces positions (pour éviter les problèmes si
     // on a deux positoins l'une au dessus de l'autre à réorganiser
-    sort(positions_blocs_a_reorganiser.begin(), positions_blocs_a_reorganiser.end());
+    std::sort(positions_blocs_a_reorganiser.begin(), positions_blocs_a_reorganiser.end());
     
     // On parcoure les positions de bloc à réorganiser
     for (int i=0; i<positions_blocs_a_reorganiser.size(); i++) {
         // On supprime ces positions de la liste des explosions en cours
         _explosions_en_cours.erase(
-            remove(_explosions_en_cours.begin(), _explosions_en_cours.end(), positions_blocs_a_reorganiser[i])
+            std::remove(_explosions_en_cours.begin(), _explosions_en_cours.end(), positions_blocs_a_reorganiser[i])
             , _explosions_en_cours.end()
         );
         // On réordonne les blocs pour ces positions
@@ -221,7 +216,7 @@ void Terrain::reorganise(int position){
         blocs[pos_x][i+1] = tmp;
         
         // au passage, on met à jour les positions en cours d'explosion stockées
-        it = find(_explosions_en_cours.begin(), _explosions_en_cours.end(), pos_x*nb_blocs_abscisses+i);
+        it = std::find(_explosions_en_cours.begin(), _explosions_en_cours.end(), pos_x*nb_blocs_abscisses+i);
         if (it != _explosions_en_cours.end()) { // la position a été trouvée
             *it = *it + 1;
         }
@@ -244,4 +239,92 @@ void Terrain::afficher(){
     }
     
     //_vaisseau->afficher();
+}
+
+void Terrain::dessiner(){
+    // On affiche le terrain
+    ImageRenderer::draw("terrain.bmp", 0, 0, _longueur, _hauteur);
+
+    // On affiche le vaisseau
+    _vaisseau->dessiner();
+    
+    // On affiche la bombe du vaisseau si elle est défini
+    if (_vaisseau->bombe != nullptr) {
+        // On donne la longueur du carré de la bombe : 1/4 des blocs à exploser
+        _vaisseau->bombe->dessiner(_longueur_bloc/4);
+    }
+
+    // On affiche les blocs
+    for (int i=0; i<nb_blocs_abscisses; i++) {
+        for (int j=0; j<nb_blocs_ordonnees; j++) {
+            switch (blocs[i][j]) {
+                case 1:
+                    ImageRenderer::draw(
+                        "bloc1.bmp",
+                        _x_pix_deb_blocs + i*_longueur_bloc,
+                        _y_pix_deb_blocs + j*_longueur_bloc,
+                        _longueur_bloc,
+                        _longueur_bloc
+                    );
+                    break;
+                case 2:
+                    ImageRenderer::draw(
+                                        "bloc2.bmp",
+                                        _x_pix_deb_blocs + i*_longueur_bloc,
+                                        _y_pix_deb_blocs + j*_longueur_bloc,
+                                        _longueur_bloc,
+                                        _longueur_bloc
+                                        );
+                    break;
+                case 3:
+                    ImageRenderer::draw(
+                                        "bloc3.bmp",
+                                        _x_pix_deb_blocs + i*_longueur_bloc,
+                                        _y_pix_deb_blocs + j*_longueur_bloc,
+                                        _longueur_bloc,
+                                        _longueur_bloc
+                                        );
+                    break;
+                case -4:
+                    ImageRenderer::draw(
+                                        "explosion-4.bmp",
+                                        _x_pix_deb_blocs + i*_longueur_bloc,
+                                        _y_pix_deb_blocs + j*_longueur_bloc,
+                                        _longueur_bloc,
+                                        _longueur_bloc
+                                        );
+                    break;
+                case -3:
+                    ImageRenderer::draw(
+                                        "explosion-3.bmp",
+                                        _x_pix_deb_blocs + i*_longueur_bloc,
+                                        _y_pix_deb_blocs + j*_longueur_bloc,
+                                        _longueur_bloc,
+                                        _longueur_bloc
+                                        );
+                    break;
+                case -2:
+                    ImageRenderer::draw(
+                                        "explosion-2.bmp",
+                                        _x_pix_deb_blocs + i*_longueur_bloc,
+                                        _y_pix_deb_blocs + j*_longueur_bloc,
+                                        _longueur_bloc,
+                                        _longueur_bloc
+                                        );
+                    break;
+                case -1:
+                    ImageRenderer::draw(
+                                        "explosion-1.bmp",
+                                        _x_pix_deb_blocs + i*_longueur_bloc,
+                                        _y_pix_deb_blocs + j*_longueur_bloc,
+                                        _longueur_bloc,
+                                        _longueur_bloc
+                                        );
+                    break;
+                    
+                default:
+                    break;
+            }
+        }
+    }
 }

@@ -5,6 +5,7 @@
 #include "SDL.h"
 #include "ImageRenderer.cpp"
 #include <string>
+#include "Application.hpp"
 
 using namespace std;
 
@@ -17,40 +18,46 @@ int main(int argc, char *argv[])
     if(SDL_CreateWindowAndRenderer(0, 0, 0, &window, &renderer) < 0)
         exit(2);
     
+    int w, h;
+    SDL_GetWindowSize(window, &w, &h);
+
     ImageRenderer::initialiseWindowAndRenderer(window, renderer);
     
-    
-    string file = "background2.bmp";
-    
-    Sprite sprite = ImageRenderer::LoadSprite(file.c_str());
-    if(sprite.texture == NULL)
-        exit(2);
+    // On instancie le modèle de notre application
+    Application app(w, h);
     
     /* Main render loop */
     Uint8 done = 0;
     SDL_Event event;
     while(!done)
     {
+        // On joue un tour du jeu
+        app.jouer();
+
         /* Check for events */
         while(SDL_PollEvent(&event))
         {
-            if(event.type == SDL_QUIT || event.type == SDL_KEYDOWN || event.type == SDL_FINGERDOWN)
+            // Si on reçoit l'événement SDL_QUIT ou si l'utilisateur presse un bouton (back ou autre)
+            if(event.type == SDL_QUIT || event.type == SDL_KEYDOWN)
             {
                 done = 1;
             }
+            // Sinon, si doigt posé sur l'écran
+            else if(event.type == SDL_FINGERDOWN){
+                int pos_x_touch = event.tfinger.x * w;
+                int pos_y_touch = event.tfinger.y * h;
+                app.click(w, h);
+            }
         }
+		SDL_RenderClear(renderer);
         
-        
-        /* Draw a gray background */
-        SDL_SetRenderDrawColor(renderer, 0xA0, 0xA0, 0xA0, 0xFF);
-        SDL_RenderClear(renderer);
-        
-        ImageRenderer::draw(sprite, 0, 0, 200, 200);//background
+        // On dit à l'application de se dessiner!
+        app.dessiner();
         
         /* Update the screen! */
         SDL_RenderPresent(renderer);
         
-        SDL_Delay(10);
+        SDL_Delay(Application::intervalle_rafraichir);
     }
     
     exit(0);

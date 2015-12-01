@@ -15,8 +15,10 @@ class Application {
 private:
     bool _isGameStarted;
     Terrain* _terrain;
+    int _longueur;
+    int _hauteur;
 public:
-    Application();
+    Application(int w, int h);
     /**
      * méthodes d'instance
      */
@@ -24,6 +26,7 @@ public:
     void jouer();
     void endGame();
     void afficher();
+    void dessiner();
     bool partieCommencee();
     /**
      * constantes de classe

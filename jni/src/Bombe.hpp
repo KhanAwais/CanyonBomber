@@ -39,6 +39,7 @@ public:
     void avancer(int pas);// avance la bombe de {pas} pixels
     int explose();// signale qu'on a explosé un bloc et retourne getNbExplosions()
     void affiche();
+    void dessiner(int longueur);
     /**
      * constantes de classe
      */

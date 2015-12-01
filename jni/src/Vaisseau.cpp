@@ -11,6 +11,11 @@
 #include <stdlib.h>// pour rand()
 #include "Terrain.hpp"
 #include <iostream>
+#include "ImageRenderer.hpp"
+#include <string>
+#include <android/log.h> // Pour le log en natif vers logcat
+
+#include <sstream>
 
 using namespace std;
 
@@ -20,11 +25,8 @@ Vaisseau::Vaisseau(int x_min_terrain, int x_max_terrain){
     bombe = nullptr;
     _bombeChargee = true;
     
-    /**
-     * TODO : modifier ces valeurs en fonction de l'image
-     */
-    _longueur = 50;
-    _hauteur = 25;
+    _longueur = 69; // valeur fixé en fonction des sprites
+    _hauteur = 60; // valeur fixé en fonction des sprites
     
     _x_min = x_min_terrain;
     _x_max = x_max_terrain - _longueur;
@@ -32,6 +34,10 @@ Vaisseau::Vaisseau(int x_min_terrain, int x_max_terrain){
     // Le pas dépend de la longueur horizontale que le vaisseau peut parcourir et du temps de rafraichissement de l'écran
     // je veux que le vaisseau parcoure la longueur horizontale en 10 sec
     _pas = Application::intervalle_rafraichir * (_x_max - _x_min) / 10000;
+    // si le pas calculé est à 0 (écran de résolution petite probablement), alors on le met à 1
+    if (_pas == 0) {
+        _pas = 1;
+    }
     
     // on place le vaisseau pour le debut de son mouvement
     debut_mouvement();
@@ -102,4 +108,15 @@ void Vaisseau::afficher(){
     if (bombe != nullptr) {
         bombe->affiche();
     }
+}
+
+void Vaisseau::dessiner(){
+    // On affiche le vaisseau
+    string spriteVaisseau;
+    if (_direction == 1) {
+        spriteVaisseau = "Gohan1.bmp"; // Il se déplace vers la droite
+    } else {
+        spriteVaisseau = "Gohan-1.bmp"; // Il se déplace vers la gauche
+    }
+    ImageRenderer::draw(spriteVaisseau, _pos_x, _pos_y, _longueur, _hauteur); // Les images du vaisseau sont toujours à 69*60
 }
