@@ -44,6 +44,7 @@ public:
     void lacherBombe();// lâche une bombe si possible
     void rechargerBombe();// recharge une bombe pour permettre au vaisseau de tirer de nouveau
     void afficher();
+    void dessiner();
 };
 
 #endif /* Vaisseau_hpp */

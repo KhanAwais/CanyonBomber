@@ -57,6 +57,7 @@ public:
      */
     void jouer();
     void clicUtilisateur();
+    void dessiner();
     // TODO ajouter une méthode repositionne(Vaisseau v*) qui repositionne un vaisseau en fin de ligne
     // elle sera utile lorsque le multi joueur sera géré
     void afficher();

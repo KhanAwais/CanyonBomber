@@ -9,14 +9,17 @@
 #include "Application.hpp"
 #include "Terrain.hpp"
 #include <iostream>
+#include "ImageRenderer.hpp"
 
 using namespace std;
 
-const int Application::intervalle_rafraichir = 50; // temps d'intervalle de rafraichissement de l'interface (en ms)
+const int Application::intervalle_rafraichir = 200; // temps d'intervalle de rafraichissement de l'interface (en ms)
 
-Application::Application(){
+Application::Application(int w, int h){
     _isGameStarted = false;
     _terrain = nullptr;
+    _longueur = w;
+    _hauteur = h;
 }
 
 /**
@@ -29,7 +32,7 @@ void Application::click(int x, int y){
         /**
          * TODO : changer ces valeurs en fonction du device
          */
-        _terrain = new Terrain(1080, 1920, this);
+        _terrain = new Terrain(_longueur, _hauteur, this);
     } else {
         _terrain->clicUtilisateur();
     }
@@ -65,4 +68,17 @@ void Application::afficher(){
  */
 bool Application::partieCommencee(){
     return _isGameStarted;
+}
+
+/**
+ * Rendu graphique de l'application
+ */
+void Application::dessiner(){
+    if (_isGameStarted) {
+        // On affiche le jeu
+        _terrain->dessiner();
+    } else {
+        // On affiche le menu
+        ImageRenderer::draw("background2.bmp", 0, 0, _longueur, _hauteur);
+    }
 }

@@ -9,6 +9,8 @@
 #include "Bombe.hpp"
 #include <math.h>
 #include <iostream>
+#include <string>
+#include "ImageRenderer.hpp"
 
 const int Bombe::nb_explosions_max = 6;
 
@@ -51,4 +53,9 @@ int Bombe::explose(){
 void Bombe::affiche(){
     std::cout << "Bombe { _pos_x=" << _pos_x << ", _pos_y=" << _pos_y << ", _nb_explosions=" << _nb_explosions
         << " }" << std::endl;
+}
+
+void Bombe::dessiner(int longueur){
+    std::string spriteBombe = "bombe.bmp";
+    ImageRenderer::draw(spriteBombe, _pos_x, _pos_y, longueur, longueur);
 }
