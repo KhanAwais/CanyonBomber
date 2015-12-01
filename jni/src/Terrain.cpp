@@ -131,7 +131,7 @@ void Terrain::jouer(){
         
         int bloc_x = xPixelsToXBloc(_vaisseau->bombe->getPosX());
         int bloc_y = yPixelsToYBloc(_vaisseau->bombe->getPosY());
-        if (bloc_x > 0 && bloc_y > 0 && blocs[bloc_x][bloc_y] > 0) {
+        if (bloc_x >= 0 && bloc_y >= 0 && blocs[bloc_x][bloc_y] > 0) {
             _vaisseau->gagner(blocs[bloc_x][bloc_y]);
             blocs[bloc_x][bloc_y] = -4;
             _vaisseau->bombe->explose();

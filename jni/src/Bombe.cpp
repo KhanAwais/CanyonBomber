@@ -11,6 +11,7 @@
 #include <iostream>
 #include <string>
 #include "ImageRenderer.hpp"
+#include <android/log.h> // Pour le log en natif vers logcat
 
 const int Bombe::nb_explosions_max = 6;
 
