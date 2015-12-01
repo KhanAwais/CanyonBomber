@@ -28,6 +28,8 @@ Vaisseau::Vaisseau(int x_min_terrain, int x_max_terrain){
     _longueur = 69; // valeur fixé en fonction des sprites
     _hauteur = 60; // valeur fixé en fonction des sprites
     
+    _nb_vies_restantes = 3;
+
     _x_min = x_min_terrain;
     _x_max = x_max_terrain - _longueur;
     
@@ -99,6 +101,20 @@ void Vaisseau::lacherBombe(){
 void Vaisseau::rechargerBombe(){
     bombe = nullptr;
     _bombeChargee = true;
+}
+
+/**
+ * L'utilisateur vient de rater sa bombe : elle n'a touché aucun bloc
+ * On décrémente donc le nombre de vies
+ * Si il n'en reste plus (=0) alors sa partie est finie
+ */
+bool Vaisseau::bombeRatee(){
+    _nb_vies_restantes--;
+    if (_nb_vies_restantes == 0) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 void Vaisseau::afficher(){

@@ -79,6 +79,6 @@ void Application::dessiner(){
         _terrain->dessiner();
     } else {
         // On affiche le menu
-        ImageRenderer::draw("background2.bmp", 0, 0, _longueur, _hauteur);
+        ImageRenderer::draw("accueil.bmp", 0, 0, _longueur, _hauteur);
     }
 }

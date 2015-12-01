@@ -36,6 +36,11 @@ Sprite ImageRenderer::LoadSprite(const char* file){
     /* Create texture from the image */
     result.texture = SDL_CreateTextureFromSurface(renderer, temp);
     if (!result.texture) {
+        // On log le non chargement du sprite
+        string tag = "ImageRenderer.cpp";
+        string msg = "On quitte car le sprite n'a pas réussi à être chargé : ";
+        __android_log_print(50, tag.c_str(), "%s %s", msg.c_str(), file);
+
         fprintf(stderr, "Couldn't create texture: %s\n", SDL_GetError());
         SDL_FreeSurface(temp);
         return result;

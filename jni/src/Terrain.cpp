@@ -17,7 +17,7 @@
 using namespace std;
 
 const int Terrain::nb_blocs_abscisses = 12;
-const int Terrain::nb_blocs_ordonnees = 16;
+const int Terrain::nb_blocs_ordonnees = 9;
 
 // Ces deux valeurs seront mises à jour lorsqu'un Terrain sera instancié
 int Terrain::hauteur_min_vaisseau = 0;
@@ -30,12 +30,12 @@ Terrain::Terrain(int w, int h, Application* app){
     
     // ces deux variables serviront à l'instanciation des vaisseaux pour les limiter dans leur déplacement horizontal
     /**
-     * TODO : Ici, il faudra modifier les coefficients multiplicateurs par ceux que j'aurai trouvé empiriquement
-     * pour l'image du terrain que je choisirai
+     * Ici, les coefficients multiplicateurs sont calculés empiriquement
+     * pour l'image du terrain qu'on a choisi
      */
-    _x_pix_deb_blocs = w * 0.2;
-    _x_pix_fin_blocs = w * 0.8;
-    _y_pix_fin_blocs = h * 0.9;
+    _x_pix_deb_blocs = w * 0.16;
+    _x_pix_fin_blocs = w * 0.79;
+    _y_pix_fin_blocs = h * 0.92;
     hauteur_min_vaisseau = h * 0.3;
     
     // on initialise la longueur des blocs (pour le rendu)
@@ -145,10 +145,10 @@ void Terrain::jouer(){
             _vaisseau->bombe->getPosY() > _y_pix_fin_blocs ||
             _vaisseau->bombe->getNbExplosions() >= Bombe::nb_explosions_max
             ) {
-            if (_vaisseau->bombe->getNbExplosions() >= Bombe::nb_explosions_max) {
-                std::cout << Bombe::nb_explosions_max << " bombes explosés" << std::endl;
-            }else {
-                std::cout << "La bombe sort du terrain" << std::endl;
+            // si la bombe n'a explosé aucun bloc alors on décrémente le nombre de vies restantes
+            // si, en plus, il ne reste plus de vies alors la partie est finie
+            if (_vaisseau->bombe->getNbExplosions() == 0 && _vaisseau->bombeRatee()) {
+                _app->endGame();
             }
             _vaisseau->rechargerBombe();
         }
