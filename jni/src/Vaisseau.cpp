@@ -130,14 +130,20 @@ void Vaisseau::afficher(){
 void Vaisseau::dessiner(){
     // On affiche le vaisseau
     string spriteVaisseau;
-    if(_isShooting){
-        spriteVaisseau = "bloc2.bmp";
-        _isShooting = false;
-    }
-    else if (_direction == 1) {
+    
+
+    if (_direction == 1) {
         spriteVaisseau = "Gohan.bmp"; // Il se déplace vers la droite
+        if(_isShooting){
+            spriteVaisseau = "Gohan_tir1.bmp";
+            _isShooting = false;
+        }
     } else {
         spriteVaisseau = "Gohan-1.bmp"; // Il se déplace vers la gauche
+        if(_isShooting){
+            spriteVaisseau = "Gohan_tir-1.bmp";
+            _isShooting = false;
+        }
     }
     
     ImageRenderer::draw(spriteVaisseau, _pos_x, _pos_y, _longueur, _hauteur); // Les images du vaisseau sont toujours à 69*60

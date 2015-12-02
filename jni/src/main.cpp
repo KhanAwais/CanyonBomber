@@ -17,8 +17,12 @@ int main(int argc, char *argv[])
     SDL_Renderer *renderer;
     
     if(SDL_CreateWindowAndRenderer(0, 0, 0, &window, &renderer) < 0)
+    {
+        string tag = "main.cpp";
+        string msg = "On quitte, la window pas créer ";
+        __android_log_print(50, tag.c_str(), "%s", msg.c_str());
         exit(2);
-    
+    }
     int w, h;
     SDL_GetWindowSize(window, &w, &h);
 
