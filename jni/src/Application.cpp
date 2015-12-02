@@ -79,6 +79,23 @@ void Application::dessiner(){
         _terrain->dessiner();
     } else {
         // On affiche le menu
-        ImageRenderer::draw("accueil.bmp", 0, 0, _longueur, _hauteur);
+        ImageRenderer::draw("bgaccueil.bmp", 0, 0, _longueur, _hauteur);
+        
+        ImageRenderer::draw("dragonBallTitle.bmp",
+                            _longueur/2 - (_longueur*0.66)/2,
+                            100,
+                            _longueur*0.66,
+                            80);
+        ImageRenderer::draw("bomberTitle.bmp",
+                            _longueur/2 - (_longueur*0.50)/2,
+                            170,
+                            _longueur*0.50,
+                            60);
+        
+        ImageRenderer::draw("play.bmp",
+                            _longueur/2 - (_longueur*0.66) /2,
+                            _hauteur - 200,
+                            _longueur*0.66,
+                            120);
     }
 }

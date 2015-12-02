@@ -26,6 +26,7 @@ private:
     int _hauteur;// hauteur du vaisseau (ie de l'image)
     int _score;// cumul des valeurs des blocs explosés
     bool _bombeChargee;// booléen qui permet ou non de lancer une bombe
+    bool _isShooting;
     int _nb_vies_restantes;
     /**
      * méthodes d'instances

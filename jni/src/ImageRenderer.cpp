@@ -25,6 +25,7 @@ Sprite ImageRenderer::LoadSprite(const char* file){
     
     /* Load the sprite image */
     temp = SDL_LoadBMP(file);
+    SDL_SetColorKey(temp,SDL_TRUE,SDL_MapRGB(temp->format,60,180,213));
     if (temp == NULL)
     {
         fprintf(stderr, "Couldn't load %s: %s\n", file, SDL_GetError());
@@ -34,6 +35,7 @@ Sprite ImageRenderer::LoadSprite(const char* file){
     result.h = temp->h;
     
     /* Create texture from the image */
+
     result.texture = SDL_CreateTextureFromSurface(renderer, temp);
     if (!result.texture) {
         // On log le non chargement du sprite

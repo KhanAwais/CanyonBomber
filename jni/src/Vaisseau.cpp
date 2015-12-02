@@ -24,7 +24,7 @@ Vaisseau::Vaisseau(int x_min_terrain, int x_max_terrain){
     
     bombe = nullptr;
     _bombeChargee = true;
-    
+    _isShooting  = false;
     _longueur = 69; // valeur fixé en fonction des sprites
     _hauteur = 60; // valeur fixé en fonction des sprites
     
@@ -89,6 +89,7 @@ void Vaisseau::lacherBombe(){
     if(_bombeChargee){
         // C'est la classe Terrain qui se chargera de la faire avancer
         bombe = new Bombe(_pos_x+_longueur/2, _pos_y+_hauteur/2, _direction);
+        _isShooting = true;
         // on empêche de tirer juste après
         _bombeChargee = false;
     }
@@ -129,10 +130,15 @@ void Vaisseau::afficher(){
 void Vaisseau::dessiner(){
     // On affiche le vaisseau
     string spriteVaisseau;
-    if (_direction == 1) {
-        spriteVaisseau = "Gohan1.bmp"; // Il se déplace vers la droite
+    if(_isShooting){
+        spriteVaisseau = "bloc2.bmp";
+        _isShooting = false;
+    }
+    else if (_direction == 1) {
+        spriteVaisseau = "Gohan.bmp"; // Il se déplace vers la droite
     } else {
         spriteVaisseau = "Gohan-1.bmp"; // Il se déplace vers la gauche
     }
+    
     ImageRenderer::draw(spriteVaisseau, _pos_x, _pos_y, _longueur, _hauteur); // Les images du vaisseau sont toujours à 69*60
 }

@@ -10,6 +10,7 @@
 #include "Application.hpp"
 #include <stdlib.h> // pour la fonction rand()
 #include <iostream>
+#include <sstream>
 #include <algorithm> // Pour std::sort
 #include "ImageRenderer.hpp"
 #include <android/log.h> // Pour le log en natif vers logcat
@@ -22,6 +23,14 @@ const int Terrain::nb_blocs_ordonnees = 9;
 // Ces deux valeurs seront mises à jour lorsqu'un Terrain sera instancié
 int Terrain::hauteur_min_vaisseau = 0;
 int Terrain::hauteur_max_vaisseau = 0;
+
+template <typename T>
+std::string to_string(T value)
+{
+    std::ostringstream os ;
+    os << value ;
+    return os.str() ;
+}
 
 Terrain::Terrain(int w, int h, Application* app){
     _longueur = w;
@@ -257,73 +266,22 @@ void Terrain::dessiner(){
     // On affiche les blocs
     for (int i=0; i<nb_blocs_abscisses; i++) {
         for (int j=0; j<nb_blocs_ordonnees; j++) {
-            switch (blocs[i][j]) {
-                case 1:
-                    ImageRenderer::draw(
-                        "bloc1.bmp",
-                        _x_pix_deb_blocs + i*_longueur_bloc,
-                        _y_pix_deb_blocs + j*_longueur_bloc,
-                        _longueur_bloc,
-                        _longueur_bloc
-                    );
-                    break;
-                case 2:
-                    ImageRenderer::draw(
-                                        "bloc2.bmp",
-                                        _x_pix_deb_blocs + i*_longueur_bloc,
-                                        _y_pix_deb_blocs + j*_longueur_bloc,
-                                        _longueur_bloc,
-                                        _longueur_bloc
-                                        );
-                    break;
-                case 3:
-                    ImageRenderer::draw(
-                                        "bloc3.bmp",
-                                        _x_pix_deb_blocs + i*_longueur_bloc,
-                                        _y_pix_deb_blocs + j*_longueur_bloc,
-                                        _longueur_bloc,
-                                        _longueur_bloc
-                                        );
-                    break;
-                case -4:
-                    ImageRenderer::draw(
-                                        "explosion-4.bmp",
-                                        _x_pix_deb_blocs + i*_longueur_bloc,
-                                        _y_pix_deb_blocs + j*_longueur_bloc,
-                                        _longueur_bloc,
-                                        _longueur_bloc
-                                        );
-                    break;
-                case -3:
-                    ImageRenderer::draw(
-                                        "explosion-3.bmp",
-                                        _x_pix_deb_blocs + i*_longueur_bloc,
-                                        _y_pix_deb_blocs + j*_longueur_bloc,
-                                        _longueur_bloc,
-                                        _longueur_bloc
-                                        );
-                    break;
-                case -2:
-                    ImageRenderer::draw(
-                                        "explosion-2.bmp",
-                                        _x_pix_deb_blocs + i*_longueur_bloc,
-                                        _y_pix_deb_blocs + j*_longueur_bloc,
-                                        _longueur_bloc,
-                                        _longueur_bloc
-                                        );
-                    break;
-                case -1:
-                    ImageRenderer::draw(
-                                        "explosion-1.bmp",
-                                        _x_pix_deb_blocs + i*_longueur_bloc,
-                                        _y_pix_deb_blocs + j*_longueur_bloc,
-                                        _longueur_bloc,
-                                        _longueur_bloc
-                                        );
-                    break;
-                    
-                default:
-                    break;
+        std:string nomFichier;
+            
+            if(blocs[i][j] > 0 ){
+                nomFichier = "bloc";
+            }
+            else if(blocs[i][j] < 0){
+                nomFichier = "explosion";
+            }
+            if(blocs[i][j] != 0){
+                ImageRenderer::draw(
+                                    nomFichier + to_string(blocs[i][j]) + ".bmp",
+                                    _x_pix_deb_blocs + i*_longueur_bloc,
+                                    _y_pix_deb_blocs + j*_longueur_bloc,
+                                    _longueur_bloc,
+                                    _longueur_bloc
+                                    );
             }
         }
     }

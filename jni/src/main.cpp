@@ -1,9 +1,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
+#include <android/log.h> 
 
 #include "SDL.h"
-#include "ImageRenderer.cpp"
+#include "ImageRenderer.hpp"
 #include <string>
 #include "Application.hpp"
 
@@ -46,7 +47,19 @@ int main(int argc, char *argv[])
             else if(event.type == SDL_FINGERDOWN){
                 int pos_x_touch = event.tfinger.x * w;
                 int pos_y_touch = event.tfinger.y * h;
-                app.click(w, h);
+
+                if (app.partieCommencee()) {
+                    app.click(w, h);
+                }
+                if(!app.partieCommencee()){
+                    if(pos_x_touch > (w/2) - w*0.33 &&
+                       pos_y_touch > h - 200 &&
+                       pos_x_touch < ((w/2)-w*0.33 + w*0.66) &&
+                       pos_y_touch < (h - 200 + 120))
+                    {
+                        app.click(w, h);
+                    }
+                }
             }
         }
 		SDL_RenderClear(renderer);
